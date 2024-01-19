@@ -1,0 +1,19 @@
+{
+  "fmt": {
+    "lineWidth": 120
+  },
+  "imports": {
+    "grammy/": "https://deno.land/x/grammy@v1.20.3/",
+    "zod/": "https://deno.land/x/zod@v3.22.4/",
+    "std/": "https://deno.land/std@0.212.0/",
+    "ms/": "https://deno.land/x/ms@v0.1.0/"
+  },
+  "deploy": {
+    "project": "0b2db8ba-2caa-4b25-81e5-a3f5af5dd4a1",
+    "exclude": [
+      "**/node_modules"
+    ],
+    "include": [],
+    "entrypoint": "bot.ts"
+  }
+}
