@@ -12,4 +12,4 @@ Deployed to Deno Deploy with `deployctl deploy --prod --project=<project-name> b
 
 ## Licese
 
-See [LICENSE.md](LICENSE.md)
+See [LICENSE](LICENSE)
