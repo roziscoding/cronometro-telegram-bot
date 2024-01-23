@@ -3,6 +3,7 @@ import { z } from "./deps.ts";
 
 export const AppConfig = z.object({
   TELEGRAM_TOKEN: z.string(),
+  WEBHOOK_URL: z.string(),
 });
 
 export const appConfig = AppConfig.parse(Deno.env.toObject());

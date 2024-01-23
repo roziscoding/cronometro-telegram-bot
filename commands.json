@@ -1,0 +1,50 @@
+[
+  {
+    "scope": {
+      "type": "all_private_chats"
+    },
+    "commands": [
+      {
+        "command": "start",
+        "description": "Say hello"
+      }
+    ]
+  },
+  {
+    "scope": {
+      "type": "all_group_chats"
+    },
+    "commands": [
+      {
+        "command": "start",
+        "description": "Say hello"
+      }
+    ]
+  },
+  {
+    "scope": {
+      "type": "all_chat_administrators"
+    },
+    "commands": [
+      {
+        "command": "block",
+        "description": "Block a user from using the bot"
+      },
+      {
+        "command": "unblock",
+        "description": "Unblocks a user from using the bot"
+      }
+    ]
+  },
+  {
+    "scope": {
+      "type": "default"
+    },
+    "commands": [
+      {
+        "command": "remindme",
+        "description": "Sets a new reminder"
+      }
+    ]
+  }
+]

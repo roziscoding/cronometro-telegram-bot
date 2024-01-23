@@ -6,7 +6,8 @@
     "grammy/": "https://deno.land/x/grammy@v1.20.3/",
     "zod/": "https://deno.land/x/zod@v3.22.4/",
     "std/": "https://deno.land/std@0.212.0/",
-    "ms/": "https://deno.land/x/ms@v0.1.0/"
+    "ms/": "https://deno.land/x/ms@v0.1.0/",
+    "grammy_commands/": "https://deno.land/x/grammy_commands@v0.4.0/"
   },
   "deploy": {
     "project": "0b2db8ba-2caa-4b25-81e5-a3f5af5dd4a1",
@@ -15,5 +16,10 @@
     ],
     "include": [],
     "entrypoint": "bot.ts"
+  },
+  "tasks": {
+    "setup": "deno run -A --unstable setup.ts",
+    "start": "deno run -A --unstable server.ts",
+    "dev": "deno run -A --watch --unstable polling.ts"
   }
 }
