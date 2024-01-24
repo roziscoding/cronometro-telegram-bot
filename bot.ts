@@ -5,6 +5,13 @@ export const kv = await Deno.openKv();
 export const bot = new grammy.Bot(appConfig.TELEGRAM_TOKEN);
 export const myCommands = new commands.Commands();
 
+function addToAllScopes(command: ReturnType<typeof myCommands.command>, middleware: grammy.Middleware) {
+  command.addToScope({ type: "default" }, middleware)
+    .addToScope({ type: "all_private_chats" }, middleware)
+    .addToScope({ type: "all_chat_administrators" }, middleware)
+    .addToScope({ type: "all_group_chats" }, middleware);
+}
+
 myCommands.command("start", "Say hello")
   .addToScope(
     { "type": "all_private_chats" },
@@ -49,34 +56,41 @@ myCommands.command("unblock", "Unblocks a user from using the bot")
     },
   );
 
-myCommands.command("remindme", "Sets a new reminder")
-  .addToScope({ type: "default" }, async (ctx) => {
-    if (!ctx.from) return;
-    if (!ctx.message?.reply_to_message) {
-      return ctx.reply("You need to reply to a message to use this command!");
-    }
+addToAllScopes(myCommands.command("remindme", "Sets a new reminder"), async (ctx) => {
+  if (!ctx.from) return;
+  if (!ctx.message?.reply_to_message) {
+    return ctx.reply("You need to reply to a message to use this command!");
+  }
 
-    const quotedMessage = ctx.message.reply_to_message;
+  const quotedMessage = ctx.message.reply_to_message;
 
-    const isBlocked = await kv.get([ctx.from.id.toString()]).then(({ value }) => Boolean(value));
+  const isBlocked = await kv.get([ctx.from.id.toString()]).then(({ value }) => Boolean(value));
 
-    if (isBlocked) return;
+  if (isBlocked) return;
 
-    const time = ctx.message.text!.split(" ").slice(1).join("");
-    const msTime = ms(time);
+  const time = ctx.message.text!.split(" ").slice(1).join("");
+  const msTime = ms(time);
 
-    if (!msTime || typeof msTime !== "number" || msTime < 0) {
-      return ctx.reply("Invalid time!");
-    }
+  if (!msTime || typeof msTime !== "number" || msTime < 0) {
+    return ctx.reply("Invalid time!");
+  }
 
-    const reminder = {
-      chatId: ctx.chat?.id,
-      messageId: quotedMessage?.message_id,
-    };
+  const reminder = {
+    chatId: ctx.chat?.id,
+    messageId: quotedMessage?.message_id,
+  };
 
-    await kv.enqueue(reminder, { delay: msTime });
+  await kv.enqueue(reminder, { delay: msTime });
 
-    await ctx.reply(`Reminder set for ${time}!`);
-  });
+  await ctx.reply(`Reminder set for ${time}!`);
+});
+
+addToAllScopes(myCommands.command("help", "Shows help message"), (ctx) =>
+  ctx.reply(
+    [
+      "Hey! I'm a bot that helps you remember things!",
+      "Reply to a message with /remindme <time> to set a reminder! For example: /remindme 1h30m",
+    ].join("\n"),
+  ));
 
 bot.use(myCommands);
