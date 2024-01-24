@@ -62,13 +62,13 @@ addToAllScopes(myCommands.command("remindme", "Sets a new reminder"), async (ctx
     return ctx.reply("You need to reply to a message to use this command!");
   }
 
-  const quotedMessage = ctx.message.reply_to_message;
+  const quotedMessage = ctx.message!.reply_to_message;
 
   const isBlocked = await kv.get([ctx.from.id.toString()]).then(({ value }) => Boolean(value));
 
   if (isBlocked) return;
 
-  const time = ctx.message.text!.split(" ").slice(1).join("");
+  const time = ctx.message!.text!.split(" ").slice(1).join("");
   const msTime = ms(time);
 
   if (!msTime || typeof msTime !== "number" || msTime < 0) {
@@ -89,8 +89,10 @@ addToAllScopes(myCommands.command("help", "Shows help message"), (ctx) =>
   ctx.reply(
     [
       "Hey! I'm a bot that helps you remember things!",
-      "Reply to a message with /remindme <time> to set a reminder! For example: /remindme 1h30m",
+      "Reply to a message with <code>/remindme [time]</code> to set a reminder!",
+      "For example: <code>/remindme 1h30m</code>",
     ].join("\n"),
+    { parse_mode: "HTML" },
   ));
 
 bot.use(myCommands);
