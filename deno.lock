@@ -2,28 +2,17 @@
   "version": "3",
   "packages": {
     "specifiers": {
-      "jsr:@std/assert@^0.220.1": "jsr:@std/assert@0.220.1",
+      "jsr:@std/dotenv": "jsr:@std/dotenv@0.220.1",
       "jsr:@std/dotenv@^0.220.1": "jsr:@std/dotenv@0.220.1",
-      "jsr:@std/fmt@^0.220.1": "jsr:@std/fmt@0.220.1",
       "npm:@grammyjs/commands@^0.3.1": "npm:@grammyjs/commands@0.3.1",
       "npm:@types/luxon": "npm:@types/luxon@3.4.2",
-      "npm:@types/luxon@^3.4.2": "npm:@types/luxon@3.4.2",
       "npm:grammy@^1.21.1": "npm:grammy@1.21.1",
       "npm:luxon@^3.4.4": "npm:luxon@3.4.4",
       "npm:zod@^3.22.4": "npm:zod@3.22.4"
     },
     "jsr": {
-      "@std/assert@0.220.1": {
-        "integrity": "88710d54f3afdd7a5761e7805abba1f56cd14e4b212feffeb3e73a9f77482425",
-        "dependencies": [
-          "jsr:@std/fmt@^0.220.1"
-        ]
-      },
       "@std/dotenv@0.220.1": {
         "integrity": "cf7e6f793b65ae7af1d29e3cea373cd69e21f98b096ee4a58588b4cdbc06cf31"
-      },
-      "@std/fmt@0.220.1": {
-        "integrity": "3b1a698477a26b1dacbbee26db1a65030a005c6d71db3b3a0e59f8a638f04d7a"
       }
     },
     "npm": {
@@ -196,16 +185,5 @@
     "https://deno.land/x/zod@v3.22.4/locales/en.ts": "a7a25cd23563ccb5e0eed214d9b31846305ddbcdb9c5c8f508b108943366ab4c",
     "https://deno.land/x/zod@v3.22.4/mod.ts": "64e55237cb4410e17d968cd08975566059f27638ebb0b86048031b987ba251c4",
     "https://deno.land/x/zod@v3.22.4/types.ts": "724185522fafe43ee56a52333958764c8c8cd6ad4effa27b42651df873fc151e"
-  },
-  "workspace": {
-    "dependencies": [
-      "jsr:@std/assert@^0.220.1",
-      "jsr:@std/dotenv@^0.220.1",
-      "npm:@grammyjs/commands@^0.3.1",
-      "npm:@types/luxon@^3.4.2",
-      "npm:grammy@^1.21.1",
-      "npm:luxon@^3.4.4",
-      "npm:zod@^3.22.4"
-    ]
   }
 }
