@@ -97,4 +97,8 @@ addToAllScopes(myCommands.command("help", "Shows help message"), (ctx) =>
     { parse_mode: "HTML" },
   ));
 
+addToAllScopes(myCommands.command("", "Creates a reminder for a specific date and time"), (ctx) => {
+
+})
+
 bot.use(myCommands);
