@@ -1,5 +1,7 @@
+import * as commands from "@grammyjs/commands";
+import * as grammy from "grammy";
 import { appConfig } from "./config.ts";
-import { commands, grammy, ms } from "./deps.ts";
+import { ms, parseTime } from "./time.ts";
 
 export const kv = await Deno.openKv();
 export const bot = new grammy.Bot(appConfig.TELEGRAM_TOKEN);
@@ -68,10 +70,10 @@ addToAllScopes(myCommands.command("remindme", "Sets a new reminder"), async (ctx
 
   if (isBlocked) return;
 
-  const time = ctx.message!.text!.split(" ").slice(1).join("");
-  const msTime = ms(time);
+  const time = ctx.message!.text!.replace("/remindme ", "");
+  const msTime = ms(parseTime(time));
 
-  if (!msTime || typeof msTime !== "number" || msTime < 0) {
+  if (!msTime) {
     return ctx.reply("Invalid time!");
   }
 

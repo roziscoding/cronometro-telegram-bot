@@ -1,5 +1,5 @@
-import "std/dotenv/load.ts";
-import { z } from "./deps.ts";
+import "@std/dotenv/load";
+import { z } from "zod";
 
 export const AppConfig = z.object({
   TELEGRAM_TOKEN: z.string(),

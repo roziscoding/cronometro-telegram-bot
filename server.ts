@@ -1,5 +1,6 @@
+import * as grammy from "grammy";
+import { z } from "zod";
 import { bot, kv } from "./bot.ts";
-import { grammy, z } from "./deps.ts";
 
 const handleUpdate = grammy.webhookCallback(bot, "std/http");
 
