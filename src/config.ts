@@ -3,6 +3,7 @@ import { z } from "zod";
 
 export const AppConfig = z.object({
   TELEGRAM_TOKEN: z.string(),
+  OPEN_API_KEY: z.string()
 });
 
 export const appConfig = AppConfig.parse(Deno.env.toObject());

@@ -5,12 +5,13 @@ import { Context } from "grammy";
 import { OpenAI } from "openai";
 // @deno-types="npm:@types/luxon"
 import { DateTime, Duration, Settings } from "luxon";
+import { appConfig } from "../config.ts";
 import { addToAllScopes } from "../helpers/commands.ts";
 
 Settings.defaultZone = "America/Sao_Paulo";
 
 const calls = new Map<string, string>();
-const openai = new OpenAI();
+const openai = new OpenAI({ apiKey: appConfig.OPEN_API_KEY });
 
 export default (commands: Commands<Context>, kv: Deno.Kv) => {
   addToAllScopes(commands.command("gpt", "Talk to the AI"), (ctx) => {
