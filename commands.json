@@ -69,6 +69,10 @@
       {
         "command": "reminder",
         "description": "Creates a reminder for a specific date and time"
+      },
+      {
+        "command": "now",
+        "description": "Shows the current date and time"
       }
     ]
   },

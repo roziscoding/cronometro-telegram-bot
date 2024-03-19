@@ -5,7 +5,7 @@ import { DateTime, Settings } from "luxon";
 import { appConfig } from "../src/config.ts";
 import { ms, parseTime } from "../src/time.ts";
 
-Settings.defaultZone = "America/Sao_Paulo"
+Settings.defaultZone = "America/Sao_Paulo";
 
 export const kv = await Deno.openKv();
 export const bot = new grammy.Bot(appConfig.TELEGRAM_TOKEN);
@@ -112,7 +112,6 @@ addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific
     return ctx.reply("Invalid date and time! Use format dd/MM/yyyy HH:mm. Example: 01/01/2022 13:00");
   }
 
-
   const delay = date.diffNow().as("milliseconds");
 
   if (delay < 0) {
@@ -130,5 +129,8 @@ addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific
 
   await ctx.reply(`Reminder set for ${time}!`);
 });
+
+myCommands.command("now", "Shows the current date and time")
+  .addToScope({ type: "all_chat_administrators" }, (ctx) => ctx.reply(DateTime.now().toFormat("dd/MM/yyyy HH:mm")));
 
 bot.use(myCommands);
