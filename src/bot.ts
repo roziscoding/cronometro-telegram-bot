@@ -1,9 +1,11 @@
 import * as commands from "@grammyjs/commands";
 import * as grammy from "grammy";
 // @deno-types="npm:@types/luxon"
-import { DateTime } from "luxon";
+import { DateTime, Settings } from "luxon";
 import { appConfig } from "../src/config.ts";
 import { ms, parseTime } from "../src/time.ts";
+
+Settings.defaultZone = "America/Sao_Paulo"
 
 export const kv = await Deno.openKv();
 export const bot = new grammy.Bot(appConfig.TELEGRAM_TOKEN);
@@ -104,7 +106,7 @@ addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific
 
   const text = ctx.message!.text!.replace("/reminder ", "");
 
-  const date = DateTime.fromFormat(text, "dd/MM/yyyy HH:mm", { zone: "America/Sao_Paulo" });
+  const date = DateTime.fromFormat(text, "dd/MM/yyyy HH:mm");
 
   if (!date.isValid) {
     return ctx.reply("Invalid date and time! Use format dd/MM/yyyy HH:mm. Example: 01/01/2022 13:00");
@@ -117,7 +119,7 @@ addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific
     return ctx.reply("The date and time must be in the future!");
   }
 
-  const time = DateTime.now().plus({ milliseconds: delay }).setZone("America/Sao_Paulo").toFormat("dd/MM/yyyy HH:mm");
+  const time = DateTime.now().plus({ milliseconds: delay }).toFormat("dd/MM/yyyy HH:mm");
 
   const reminder = {
     chatId: ctx.chat?.id,
