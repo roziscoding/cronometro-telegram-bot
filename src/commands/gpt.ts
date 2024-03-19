@@ -20,15 +20,20 @@ export default (commands: Commands<Context>, kv: Deno.Kv) => {
     const quotedMessage = ctx.message.reply_to_message;
 
     return openai.beta.chat.completions.runTools({
-      model: "gpt-3.5-turbo",
+      model: "gpt-4",
       messages: [
         {
           role: "system",
-          content: `You are a helpful assistant.
+          content: `
+            You are a helpful assistant that sets reminders, talking to the user via a telegram chatbot.
+            Refuse to do anything that is not related to setting a reminder or obtaining the current date and time.
+            You cannot set recurring reminders, nor can you set reminders for a date and time that has already passed.
+            You can set at most 10 reminders at a time.
             When asked to set a reminder, use the message provided by ther user or an empty string.
             When returning dates, always return the date in exact terms. For example, instead of "tomorrow at 5pm", say "21/03/2024 27:00"
             When setting a reminder, always say for what date and time it was set.
             Be as brief as possible.
+            When making a network request, add the protocol to the URL. For example, instead of "example.com", say "https://example.com". If an error occurs, try again with a different protocol.
           `,
         },
         { role: "user", content: ctx.message.text.replace("/gpt", "").trim() },
@@ -95,8 +100,18 @@ export default (commands: Commands<Context>, kv: Deno.Kv) => {
           });
           return;
         }
-        if (msg.role === 'assistant' && msg.content) await ctx.reply(msg.content);
+        if (msg.role === "assistant" && msg.content) await ctx.reply(msg.content);
         console.log(`[${msg.role}] ${msg.content}`);
-      });
+      })
+      .on("error", (error) => {
+        console.error("Error", error);
+        ctx.reply(
+          `There was an error processing this message:\n<pre>${
+            error.message.split(".").map((l) => l.trim()).join(".\n")
+          }</pre>`,
+          { parse_mode: "HTML" },
+        );
+      })
+      .done();
   });
 };
