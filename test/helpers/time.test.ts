@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { ms, parseTime } from "../src/time.ts";
+import { ms, parseTime } from "../../src/helpers/time.ts";
 
 Deno.test("parseTime", async (t) => {
   await t.step("parses hours", () => {

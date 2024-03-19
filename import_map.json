@@ -5,7 +5,9 @@
     "@std/dotenv/load": "jsr:@std/dotenv@^0.220.1/load",
     "@types/luxon": "npm:@types/luxon@^3.4.2",
     "grammy": "https://deno.land/x/grammy@v1.21.1/mod.ts",
+    "@grammyjs/autoquote": "https://deno.land/x/grammy_autoquote@v2.0.4/mod.ts",
     "luxon": "npm:luxon@^3.4.4",
-    "zod": "npm:zod@^3.22.4"
+    "zod": "npm:zod@^3.22.4",
+    "openai": "npm:openai@^4.29.2"
   }
 }

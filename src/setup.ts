@@ -1,4 +1,5 @@
-import { bot, myCommands } from "./bot.ts";
+import { bot } from "./bot.ts";
+import { myCommands } from "./commands/index.ts";
 
 const webhookUrl = Deno.env.get("WEBHOOK_URL");
 
