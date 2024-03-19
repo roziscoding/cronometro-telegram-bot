@@ -18,7 +18,7 @@ const openai = new OpenAI({ apiKey: appConfig.OPENAI_API_KEY });
 
 bot.on("message:text")
   .filter((ctx) => ctx.hasChatType("private") || ctx.has(":entities:mention"))
-  .filter((ctx) => ctx.hasChatType("private") || ctx.entities("mention").join("") === `@${ctx.me.username}`)
+  .filter((ctx) => ctx.hasChatType("private") || ctx.entities("mention").map(e => e.text).join("") === `@${ctx.me.username}`)
   .use(async (ctx) => {
     // deno-lint-ignore no-explicit-any
     ctx.api.config.use(addReplyParam(ctx as any) as any);
