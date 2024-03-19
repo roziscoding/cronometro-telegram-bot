@@ -104,15 +104,15 @@ addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific
 
   const text = ctx.message!.text!.replace("/reminder ", "");
 
-  const date = DateTime.fromFormat(text, "dd/MM/yyyy HH:mm");
+  const date = DateTime.fromFormat(text, "dd/MM/yyyy HH:mm", { zone: "America/Sao_Paulo" });
 
   if (!date.isValid) {
     return ctx.reply("Invalid date and time! Use format dd/MM/yyyy HH:mm. Example: 01/01/2022 13:00");
   }
 
 
-  const time = date.toFormat("dd/MM/yyyy HH:mm");
-  const delay = Math.abs(date.diffNow().as("milliseconds"));
+  const delay = date.diffNow().as("milliseconds");
+  const time = DateTime.now().plus({ milliseconds: delay }).toFormat("dd/MM/yyyy HH:mm");
 
   const reminder = {
     chatId: ctx.chat?.id,
