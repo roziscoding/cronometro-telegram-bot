@@ -1,7 +1,9 @@
 import * as commands from "@grammyjs/commands";
 import * as grammy from "grammy";
-import { appConfig } from "./config.ts";
-import { ms, parseTime } from "./time.ts";
+// @deno-types="npm:@types/luxon"
+import { DateTime } from "luxon";
+import { appConfig } from "../src/config.ts";
+import { ms, parseTime } from "../src/time.ts";
 
 export const kv = await Deno.openKv();
 export const bot = new grammy.Bot(appConfig.TELEGRAM_TOKEN);
@@ -97,8 +99,28 @@ addToAllScopes(myCommands.command("help", "Shows help message"), (ctx) =>
     { parse_mode: "HTML" },
   ));
 
-addToAllScopes(myCommands.command("", "Creates a reminder for a specific date and time"), (ctx) => {
+addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific date and time"), async (ctx) => {
+  const quotedMessage = ctx.message!.reply_to_message;
 
-})
+  const text = ctx.message!.text!.replace("/reminder ", "");
+
+  const date = DateTime.fromFormat(text, "dd/MM/yyyy HH:mm");
+
+  if (!date.isValid) {
+    return ctx.reply("Invalid date and time! Use format dd/MM/yyyy HH:mm. Example: 01/01/2022 13:00");
+  }
+
+  const time = date.toFormat("dd/MM/yyyy HH:mm");
+  const delay = date.diffNow().as("milliseconds");
+
+  const reminder = {
+    chatId: ctx.chat?.id,
+    messageId: quotedMessage?.message_id,
+  };
+
+  await kv.enqueue(reminder, { delay });
+
+  await ctx.reply(`Reminder set for ${time}!`);
+});
 
 bot.use(myCommands);

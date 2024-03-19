@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { ms, parseTime } from "./time.ts";
+import { ms, parseTime } from "../src/time.ts";
 
 Deno.test("parseTime", async (t) => {
   await t.step("parses hours", () => {
@@ -40,11 +40,11 @@ Deno.test("parseTime", async (t) => {
     assertEquals(result, { hours: 0, minutes: 0, days: 0 });
   });
 
-  await t.step('partial times', () => {
+  await t.step("partial times", () => {
     assertEquals(parseTime("1h 1"), { hours: 1, minutes: 0, days: 0 });
-  })
+  });
 
-  await t.step('parses decimal times to 0', () => {
+  await t.step("parses decimal times to 0", () => {
     assertEquals(parseTime("1.5h"), { hours: 0, minutes: 0, days: 0 });
   });
 });
