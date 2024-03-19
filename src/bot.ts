@@ -3,20 +3,18 @@ import { Bot } from "grammy";
 // @deno-types="npm:@types/luxon"
 import { DateTime, Duration, Settings } from "luxon";
 import OpenAI from "openai";
-import * as commands from "./commands/index.ts";
 import { appConfig } from "./config.ts";
 
 Settings.defaultZone = "America/Sao_Paulo";
 
 export const kv = await Deno.openKv();
 export const bot = new Bot(appConfig.TELEGRAM_TOKEN);
-
-const myCommands = commands.install(kv);
-
-bot.use(myCommands);
-
 const calls = new Map<string, string>();
 const openai = new OpenAI({ apiKey: appConfig.OPENAI_API_KEY });
+
+// const myCommands = commands.install(kv);
+
+// bot.use(myCommands);
 
 bot.on("message:text", async (ctx) => {
   // deno-lint-ignore no-explicit-any
@@ -42,6 +40,7 @@ bot.on("message:text", async (ctx) => {
           Be as brief as possible.
           When making a network request, add the protocol to the URL. For example, instead of "example.com", say "https://example.com". If an error occurs, try again with a different protocol.
           When calling setReminder, always provide the date and time in ISO 8601 format.
+          Before taking any actions regarding setting a reminder, make sure to check for the current date and time.
         `,
       },
       { role: "user", content: ctx.message.text.replace("/gpt", "").trim() },
