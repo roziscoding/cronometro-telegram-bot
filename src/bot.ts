@@ -18,13 +18,15 @@ bot.use(myCommands);
 const calls = new Map<string, string>();
 const openai = new OpenAI({ apiKey: appConfig.OPENAI_API_KEY });
 
-bot.on("message:text", (ctx) => {
+bot.on("message:text", async (ctx) => {
   // deno-lint-ignore no-explicit-any
   ctx.api.config.use(addReplyParam(ctx as any) as any);
   if (!ctx.message?.text) return;
   const quotedMessage = ctx.message.reply_to_message;
 
-  return openai.beta.chat.completions.runTools({
+  await ctx.replyWithChatAction("typing");
+
+  await openai.beta.chat.completions.runTools({
     model: "gpt-4",
     messages: [
       {
