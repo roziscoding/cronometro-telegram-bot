@@ -130,7 +130,9 @@ addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific
   await ctx.reply(`Reminder set for ${time}!`);
 });
 
-myCommands.command("now", "Shows the current date and time")
-  .addToScope({ type: "all_chat_administrators" }, (ctx) => ctx.reply(DateTime.now().toFormat("dd/MM/yyyy HH:mm")));
+addToAllScopes(
+  myCommands.command("now", "Shows the current date and time"),
+  (ctx) => ctx.reply(DateTime.now().toFormat("dd/MM/yyyy HH:mm")),
+);
 
 bot.use(myCommands);
