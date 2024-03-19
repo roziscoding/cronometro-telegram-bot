@@ -1,7 +1,6 @@
 import { Commands } from "@grammyjs/commands";
 import { Context } from "grammy";
 import block from "./block.ts";
-import gpt from "./gpt.ts";
 import help from "./help.ts";
 import now from "./now.ts";
 import reminder from "./reminder.ts";
@@ -18,8 +17,7 @@ const commandList: Array<(commands: Commands<Context>, kv: Deno.Kv) => unknown> 
   remindme,
   help,
   reminder,
-  now,
-  gpt,
+  now
 ];
 
 export function install(kv: Deno.Kv) {
