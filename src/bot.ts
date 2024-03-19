@@ -112,6 +112,11 @@ addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific
 
 
   const delay = date.diffNow().as("milliseconds");
+
+  if (delay < 0) {
+    return ctx.reply("The date and time must be in the future!");
+  }
+
   const time = DateTime.now().plus({ milliseconds: delay }).toFormat("dd/MM/yyyy HH:mm");
 
   const reminder = {
