@@ -41,6 +41,7 @@ bot.on("message:text", async (ctx) => {
           When setting a reminder, always say for what date and time it was set.
           Be as brief as possible.
           When making a network request, add the protocol to the URL. For example, instead of "example.com", say "https://example.com". If an error occurs, try again with a different protocol.
+          When calling setReminder, always provide the date and time in ISO 8601 format.
         `,
       },
       { role: "user", content: ctx.message.text.replace("/gpt", "").trim() },
