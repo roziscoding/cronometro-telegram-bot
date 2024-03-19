@@ -117,7 +117,7 @@ addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific
     return ctx.reply("The date and time must be in the future!");
   }
 
-  const time = DateTime.now().plus({ milliseconds: delay }).toFormat("dd/MM/yyyy HH:mm");
+  const time = DateTime.now().plus({ milliseconds: delay }).setZone("America/Sao_Paulo").toFormat("dd/MM/yyyy HH:mm");
 
   const reminder = {
     chatId: ctx.chat?.id,
