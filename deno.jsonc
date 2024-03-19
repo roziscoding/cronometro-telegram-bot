@@ -15,8 +15,8 @@
     "entrypoint": "bot.ts"
   },
   "tasks": {
-    "setup": "deno run -A --unstable setup.ts",
-    "start": "deno run -A --unstable server.ts",
-    "dev": "deno run -A --watch --unstable polling.ts"
+    "setup": "deno run -A --unstable src/setup.ts",
+    "start": "deno run -A --unstable src/server.ts",
+    "dev": "deno run -A --watch --unstable src/polling.ts"
   }
 }

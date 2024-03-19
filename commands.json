@@ -15,6 +15,10 @@
       {
         "command": "help",
         "description": "Shows help message"
+      },
+      {
+        "command": "reminder",
+        "description": "Creates a reminder for a specific date and time"
       }
     ]
   },
@@ -34,6 +38,10 @@
       {
         "command": "help",
         "description": "Shows help message"
+      },
+      {
+        "command": "reminder",
+        "description": "Creates a reminder for a specific date and time"
       }
     ]
   },
@@ -57,6 +65,10 @@
       {
         "command": "help",
         "description": "Shows help message"
+      },
+      {
+        "command": "reminder",
+        "description": "Creates a reminder for a specific date and time"
       }
     ]
   },
@@ -72,6 +84,10 @@
       {
         "command": "help",
         "description": "Shows help message"
+      },
+      {
+        "command": "reminder",
+        "description": "Creates a reminder for a specific date and time"
       }
     ]
   }

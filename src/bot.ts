@@ -110,8 +110,9 @@ addToAllScopes(myCommands.command("reminder", "Creates a reminder for a specific
     return ctx.reply("Invalid date and time! Use format dd/MM/yyyy HH:mm. Example: 01/01/2022 13:00");
   }
 
+
   const time = date.toFormat("dd/MM/yyyy HH:mm");
-  const delay = date.diffNow().as("milliseconds");
+  const delay = Math.abs(date.diffNow().as("milliseconds"));
 
   const reminder = {
     chatId: ctx.chat?.id,
